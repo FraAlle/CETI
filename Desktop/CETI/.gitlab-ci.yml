@@ -1,8 +1,0 @@
-stages:
-  - security
-
-  security_scan:
-    stage: security
-    image: docker.io/aquasec/trivy
-    script:
-      - trivy fs .
