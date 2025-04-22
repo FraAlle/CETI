@@ -25,16 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'nombre' => htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8'),
                     'rol' => htmlspecialchars($usuario['rol'], ENT_QUOTES, 'UTF-8')
                 ];
-                header("Location: index.php");
+
+                // Redirigir según el rol del usuario
+                if ($usuario['rol'] === 'administrador') {
+                    header("Location: admin/dashboard.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit();
             } else {
-                echo "<p>Credenciales incorrectas.</p>";
+                $error = "Credenciales incorrectas.";
             }
         } else {
-            echo "<p>Credenciales incorrectas.</p>";
+            $error = "Credenciales incorrectas.";
         }
     } else {
-        echo "<p>Por favor, completa todos los campos correctamente.</p>";
+        $error = "Por favor, completa todos los campos correctamente.";
     }
 }
 ?>
@@ -51,6 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       <button type="submit" class="login-btn">Iniciar Sesión</button>
     </form>
+
+    <!-- Mostrar errores si existen -->
+    <?php if (isset($error)): ?>
+      <p style="color: red;"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+    <?php endif; ?>
   </article>
 </main>
 

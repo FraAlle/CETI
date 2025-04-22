@@ -81,3 +81,80 @@ Cambios realizados:
 - **Buenas Prácticas**: Se mantuvo el código limpio y seguro, siguiendo las mejores prácticas de desarrollo.
 
 ---
+
+## [1.0.6] - 22-04-2025
+### Cambios en dashboard.php
+Cambios realizados:
+- Se añadió un panel de administración con estadísticas clave:
+  - Total de usuarios.
+  - Total de productos.
+  - Total de pedidos.
+  - Tonkens totales distribuidos.
+- Se mejoró el diseño del panel utilizando clases de Bootstrap para un estilo más profesional y responsivo.
+- Se corrigieron las rutas de inclusión para garantizar que los archivos CSS y JS se carguen correctamente desde cualquier subdirectorio.
+- Se implementaron rutas absolutas para los enlaces de navegación.
+
+### Explicación adicional:
+- **Estadísticas clave**: Se implementaron consultas SQL para obtener datos importantes como el total de usuarios, productos, pedidos y tonkens distribuidos.
+- **Diseño**: Se utilizó Bootstrap para crear un diseño limpio y responsivo, asegurando que el panel sea fácil de usar en dispositivos móviles y de escritorio.
+- **Compatibilidad**: Se corrigieron las rutas para que funcionen correctamente desde cualquier subdirectorio.
+
+---
+
+### Cambios en pedidos.php, productos.php y usuarios.php
+Cambios realizados:
+- Se añadieron funcionalidades completas para:
+  - Crear, editar y eliminar registros.
+  - Validar los datos de entrada en el servidor utilizando `filter_input` y consultas preparadas (`prepare` y `bind_param`) para evitar inyecciones SQL.
+  - Mostrar mensajes claros de éxito o error al realizar operaciones.
+- Se mejoró la visualización de los datos en tablas utilizando Bootstrap para un diseño limpio.
+- Se implementaron rutas absolutas para garantizar que los enlaces y recursos se carguen correctamente desde cualquier ubicación.
+
+### Explicación adicional:
+- **CRUD completo**: Se añadieron funcionalidades para gestionar registros en las tablas correspondientes.
+- **Validación de datos**: Se validaron y sanitizaron los datos de entrada para evitar inyecciones SQL y proteger la base de datos.
+- **Mensajes claros**: Se añadieron mensajes de éxito o error para informar al usuario sobre el resultado de las operaciones.
+- **Diseño mejorado**: Se utilizó Bootstrap para mejorar la apariencia de las tablas y formularios.
+
+---
+
+### Cambios en header.php
+Cambios realizados:
+- Se corrigieron las rutas de los archivos CSS y JS para que sean absolutas, asegurando que funcionen correctamente desde cualquier subdirectorio.
+- Se añadió soporte para rutas absolutas dinámicas utilizando una variable `$base_url`.
+- Se mejoró la estructura del encabezado con clases de Bootstrap para un diseño más responsivo y moderno.
+- Se añadieron enlaces adicionales como "Registro" y "Login".
+
+### Explicación adicional:
+- **Rutas absolutas**: Se corrigieron las rutas de los archivos CSS, JS y enlaces de navegación para que funcionen correctamente desde cualquier subdirectorio.
+- **Diseño mejorado**: Se utilizó Bootstrap para mejorar la apariencia del encabezado y hacerlo más responsivo.
+- **Portabilidad**: Las rutas absolutas aseguran que el proyecto funcione correctamente sin importar desde dónde se incluyan los archivos.
+
+---
+
+### Cambios en login.php
+Cambios realizados:
+- Se implementó la validación de credenciales utilizando `password_verify` para comparar contraseñas hasheadas.
+- Se añadieron mensajes claros para informar al usuario si las credenciales son incorrectas.
+- Se escaparon los datos dinámicos almacenados en la sesión con `htmlspecialchars` para prevenir ataques XSS.
+- Se mejoró la validación de los campos del formulario para asegurar que todos los datos requeridos estén presentes y sean válidos antes de procesar la solicitud.
+
+### Explicación adicional:
+- **Seguridad mejorada**: Se implementó `password_verify` para comparar contraseñas hasheadas, asegurando que las credenciales sean seguras.
+- **Protección contra XSS**: Se escaparon los datos dinámicos almacenados en la sesión para prevenir inyecciones de scripts maliciosos.
+- **Validación robusta**: Se validaron los campos del formulario para evitar datos incompletos o maliciosos.
+
+---
+
+### Cambios en style.css
+Cambios realizados:
+- Se añadió un diseño para las tablas, formularios y botones en las páginas de administración.
+- Se mejoró la visualización del encabezado y la navegación con estilos personalizados.
+- Se añadieron estilos para mensajes de éxito y error, mejorando la experiencia del usuario.
+
+### Explicación adicional:
+- **Estilo profesional**: Se añadieron estilos personalizados para tablas, formularios y botones, mejorando la experiencia visual en las páginas de administración.
+- **Mensajes de usuario**: Se añadieron estilos para mensajes de éxito y error, haciendo que sean más visibles y claros.
+- **Diseño responsivo**: Se utilizó Bootstrap junto con estilos personalizados para garantizar que las páginas sean fáciles de usar en dispositivos móviles y de escritorio.
+
+---
