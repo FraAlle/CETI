@@ -1,0 +1,219 @@
+/* Reset básico y fuente global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Fondo general */
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5; /* Blanco suave */
+  display: flex;
+  flex-direction: column;
+}
+
+/* El contenedor principal ocupa todo el espacio */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el cuerpo ocupe toda la altura */
+}
+
+/* Header principal */
+.main-header {
+  background-color: #f8f8f8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.322);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+/* Botones */
+.btn-primary,
+.carousel-caption .btn {
+  background-color: #9900ff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover,
+.carousel-caption .btn:hover {
+  background-color: #7a00cc;
+  transform: scale(1.05);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Título del sitio */
+.site-title {
+  font-size: 1.8rem;
+  color: #000000;
+  font-weight: bold;
+}
+
+.site-title .highlight {
+  color: #9900ff; /* Morado llamativo */
+  font-weight: 600;
+}
+
+/* Navegación */
+.main-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.main-nav .nav-link {
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.main-nav .nav-link:hover {
+  background-color: #9900ff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Carrusel */
+.carousel-item {
+  height: 90vh;
+  min-height: 400px;
+  background-color: #000;
+  position: relative;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+  filter: brightness(60%);
+}
+
+.carousel-caption {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.carousel-caption h2,
+.carousel-caption p {
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/*Cajas para poner texto dentro*/
+.info-box {
+  background-color: #ffffff;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid #9900ff;
+  text-align: center;
+}
+
+.info-box h1 {
+  color: #9900ff;
+  margin-bottom: 1rem;
+}
+
+.info-box p {
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Caja contenedora de login */
+.login-box {
+  max-width: 400px;
+  margin: 3rem auto;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.login-box h2 {
+  color: #9900ff;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+/* Inputs del formulario */
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* Botón de login */
+.login-btn {
+  background-color: #9900ff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #7a00cc;
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  background-color: #000000; /* Negro */
+  color: white;
+  padding: 3rem 2rem 0;
+  margin-top: auto; /* Empuja el footer al final de la página */
+}
+
+footer h4,
+footer h5 {
+  color: #9900ff;
+  margin-bottom: 1rem;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+footer p {
+  color: #ccc;
+}
+
+/* Espaciado automático para el pie */
+footer .row {
+  margin-left: 0;
+  margin-right: 0;
+}

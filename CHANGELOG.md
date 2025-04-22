@@ -1,0 +1,86 @@
+# Changelog
+
+## [1.0.1] - 22-04-2025
+### Cambios en contacto.php
+Cambios realizados:
+- Se sanitizaron los datos de entrada del formulario utilizando `filter_input` para validar y limpiar los datos ingresados.
+- Se implementó el uso de `htmlspecialchars` para escapar los datos antes de usarlos en el cuerpo del correo, protegiendo contra ataques XSS.
+- Se añadió validación en el cliente con JavaScript para mejorar la experiencia del usuario y prevenir el envío de formularios incompletos.
+- Se mejoró la validación en el servidor para asegurar que todos los campos requeridos estén presentes y sean válidos antes de procesar el formulario.
+- Se añadió manejo de errores HTTP con códigos de respuesta (`http_response_code`) para indicar errores en el procesamiento.
+
+### Explicación adicional:
+- **Sanitización de datos**: Se utilizó `filter_input` para limpiar y validar los datos ingresados, como el nombre, correo electrónico, asunto y mensaje.
+- **Protección contra XSS**: `htmlspecialchars` se usó para escapar los datos antes de incluirlos en el cuerpo del correo, evitando la inyección de scripts maliciosos.
+- **Validación en el cliente**: Se agregó un script de JavaScript para validar los campos del formulario antes de enviarlo, mejorando la experiencia del usuario.
+- **Validación en el servidor**: Se asegura que todos los campos estén completos y sean válidos antes de enviar el correo.
+- **Manejo de errores HTTP**: Se implementaron códigos de respuesta HTTP (`400` y `500`) para indicar errores en la validación o en el envío del correo.
+
+## [1.0.2] - 22-04-2025
+### Cambios en index.php
+Cambios realizados:
+- Se implementó el uso de `htmlspecialchars` para escapar cualquier texto dinámico en el HTML, protegiendo contra ataques XSS.
+- Se revisaron los atributos `alt` de las imágenes y el texto visible para asegurarse de que estén correctamente escapados.
+- Se añadieron medidas preventivas para manejar datos dinámicos en el futuro de forma segura.
+- Se reforzaron las buenas prácticas de seguridad en el código, aunque el archivo no interactúa directamente con datos de entrada del usuario ni con la base de datos.
+
+### Explicación adicional:
+- **Protección contra XSS**: Se usó `htmlspecialchars` para escapar cualquier texto dinámico que pudiera ser introducido en el futuro, previniendo inyecciones de scripts maliciosos.
+- **Buenas prácticas**: Aunque este archivo no interactúa con datos de entrada ni realiza consultas SQL, se preparó para manejar datos dinámicos de forma segura en el futuro.
+- **Validación de formularios**: Se dejó preparado para agregar validaciones en el cliente y servidor si se incluyen formularios en el futuro.
+- **Seguridad en la base de datos**: Aunque este archivo no interactúa con la base de datos, se recomienda usar usuarios con privilegios limitados en otros archivos que sí lo hagan.
+
+---
+
+## [1.0.3] - 22-04-2025
+### Cambios en login.php
+Cambios realizados:
+- Se implementó el uso de consultas preparadas (`prepare` y `bind_param`) para evitar inyecciones SQL.
+- Se sanitizaron los datos de entrada del formulario utilizando `filter_input` para validar y limpiar los datos ingresados.
+- Se añadió la verificación de contraseñas utilizando `password_verify` para garantizar la seguridad de las credenciales.
+- Se escaparon los datos dinámicos almacenados en la sesión con `htmlspecialchars` para prevenir ataques XSS.
+- Se mejoró la validación de los campos del formulario para asegurar que todos los datos requeridos estén presentes y sean válidos antes de procesar la solicitud.
+
+### Explicación adicional:
+- **Protección contra Inyección SQL**: Se usaron consultas preparadas para evitar que datos maliciosos se mezclen con las consultas SQL.
+- **Sanitización de Entradas**: Se utilizó `filter_input` para validar y limpiar los datos ingresados por el usuario.
+- **Contraseñas Hasheadas**: Se utilizó `password_verify` para comparar la contraseña ingresada con el hash almacenado en la base de datos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos antes de almacenarlos en la sesión para evitar inyecciones de scripts maliciosos.
+- **Validación de Formularios**: Se validaron los campos del formulario para evitar datos incompletos o maliciosos.
+
+---
+
+## [1.0.4] - 22-04-2025
+### Cambios en registro.php
+Cambios realizados:
+- Se simplificó el código para registrar únicamente `nombre`, `email` y `password` en la tabla `usuarios`.
+- Se configuraron valores predeterminados en la base de datos para las columnas adicionales (`rol`, `tonkens`, `insignias`, `perfil_publico`, `valoracion`), permitiendo que se ignoren en la consulta SQL.
+- Se utilizó `password_hash` para almacenar las contraseñas de forma segura.
+- Se implementaron consultas preparadas (`prepare` y `bind_param`) para evitar inyecciones SQL.
+- Se añadieron mensajes claros para informar al usuario sobre el éxito o fallo del registro.
+
+### Explicación adicional:
+- **Simplicidad**: El código ahora solo registra los campos esenciales (`nombre`, `email`, `password`), dejando que las columnas adicionales usen valores predeterminados configurados en la base de datos.
+- **Protección contra Inyección SQL**: Se usaron consultas preparadas para evitar que datos maliciosos se mezclen con las consultas SQL.
+- **Contraseñas Hasheadas**: Se utilizó `password_hash` para almacenar las contraseñas de forma segura, protegiendo los datos de los usuarios en caso de una brecha de seguridad.
+- **Manejo de Errores**: Se añadieron mensajes claros para informar al usuario si ocurre un error durante el proceso de registro.
+- **Seguridad Mejorada**: Se validaron y sanitizaron los datos de entrada utilizando `filter_input` para evitar datos maliciosos.
+
+---
+
+## [1.0.5] - 22-04-2025
+### Cambios en quienes_somos.php
+Cambios realizados:
+- Se implementó el uso de `htmlspecialchars` para escapar cualquier texto dinámico en el HTML, protegiendo contra ataques XSS.
+- Se revisaron los textos estáticos para asegurarse de que estén correctamente escapados y preparados para futuras modificaciones.
+- Se mantuvo el código limpio y preparado para manejar datos dinámicos en el futuro.
+
+### Explicación adicional:
+- **Protección contra XSS**: Se usó `htmlspecialchars` para escapar cualquier texto dinámico que pudiera ser introducido en el futuro, previniendo inyecciones de scripts maliciosos.
+- **Preparación para Datos Dinámicos**: Aunque actualmente el contenido es estático, el uso de `htmlspecialchars` asegura que el archivo esté protegido si en el futuro se cargan datos desde la base de datos o se reciben entradas del usuario.
+- **Buenas Prácticas**: Se mantuvo el código limpio y seguro, siguiendo las mejores prácticas de desarrollo.
+
+---
+
+
+
