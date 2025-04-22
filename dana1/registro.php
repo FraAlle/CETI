@@ -1,25 +1,33 @@
 <?php
 include 'includes/header.php';
-/*include 'includes/db.php';
+include 'includes/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre = trim($_POST['nombre'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    // Validar y sanitizar los datos de entrada
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-    
+    if ($nombre && $email && $password) {
+        // Hashear la contraseña
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
-    $consulta = $conexion->prepare("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, 'cliente')");
-    $consulta->bind_param("sss", $nombre, $email, $password);
+        // Consulta preparada para insertar el usuario
+        $consulta = $conexion->prepare("INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)");
+        $consulta->bind_param("sss", $nombre, $email, $passwordHash);
 
-    if ($consulta->execute()) {
-      $message = "Usuario registrado con éxito.";
-      $alertType = "success"; // Tipo de alerta para éxito
-  } else {
-      $message = "Error al registrar el usuario: " . $consulta->error;
-      $alertType = "danger"; // Tipo de alerta para error
-  }
-}*/
+        if ($consulta->execute()) {
+            $message = "Usuario registrado con éxito.";
+            $alertType = "success";
+        } else {
+            $message = "Error al registrar el usuario: " . htmlspecialchars($consulta->error, ENT_QUOTES, 'UTF-8');
+            $alertType = "danger";
+        }
+    } else {
+        $message = "Por favor, completa todos los campos correctamente.";
+        $alertType = "danger";
+    }
+}
 ?>
 
 <!-- Modal -->
@@ -30,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <h5 class="modal-title" id="exampleModalLabel">Resultado del Registro</h5>
     </div>
     <div class="modal-body">
-      <div class="alert alert-<?php echo $alertType; ?>" role="alert">
-        <?php echo $message; ?>
+      <div class="alert alert-<?php echo htmlspecialchars($alertType, ENT_QUOTES, 'UTF-8'); ?>" role="alert">
+        <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
       </div>
     </div>
     <div class="modal-footer d-flex justify-content-center">
@@ -50,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   myModal.show();
 <?php endif; ?>
 </script>
-
 
 <main>
   <article class="info-box login-box">

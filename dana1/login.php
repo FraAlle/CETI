@@ -1,21 +1,42 @@
 <?php
 include 'includes/header.php';
-/*include 'includes/db.php';
+include 'includes/db.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $query = $conexion->prepare("SELECT * FROM usuarios WHERE email = ? AND password = ?");
-    $query->bind_param("ss", $email, $password);
-    $query->execute();
-    $resultado = $query->get_result();
-    if ($resultado->num_rows > 0) {
-        session_start();
-        $_SESSION['usuario'] = $resultado->fetch_assoc();
-        header("Location: index.php");
+    // Validar y sanitizar los datos de entrada
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+    if ($email && $password) {
+        // Consulta preparada para evitar inyección SQL
+        $query = $conexion->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $query->bind_param("s", $email);
+        $query->execute();
+        $resultado = $query->get_result();
+
+        if ($resultado->num_rows > 0) {
+            $usuario = $resultado->fetch_assoc();
+            // Verificar la contraseña hasheada
+            if (password_verify($password, $usuario['password'])) {
+                session_start();
+                $_SESSION['usuario'] = [
+                    'id' => $usuario['id'],
+                    'email' => htmlspecialchars($usuario['email'], ENT_QUOTES, 'UTF-8'),
+                    'nombre' => htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8'),
+                    'rol' => htmlspecialchars($usuario['rol'], ENT_QUOTES, 'UTF-8')
+                ];
+                header("Location: index.php");
+                exit();
+            } else {
+                echo "<p>Credenciales incorrectas.</p>";
+            }
+        } else {
+            echo "<p>Credenciales incorrectas.</p>";
+        }
     } else {
-        echo "Credenciales incorrectas";
+        echo "<p>Por favor, completa todos los campos correctamente.</p>";
     }
-}*/
+}
 ?>
 
 <main>
