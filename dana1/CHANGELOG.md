@@ -158,3 +158,81 @@ Cambios realizados:
 - **Diseño responsivo**: Se utilizó Bootstrap junto con estilos personalizados para garantizar que las páginas sean fáciles de usar en dispositivos móviles y de escritorio.
 
 ---
+
+## [1.0.7] - 23-04-2025
+### Cambios en dashboard.php
+Cambios realizados:
+- **Se añadieron gráficos interactivos (charts)** para visualizar las estadísticas:
+  - Gráfico de barras para mostrar el número de pedidos por categoría.
+  - Gráfico de dona para mostrar el total de tonkens distribuidos.
+- Se corrigieron las rutas de inclusión para garantizar que los archivos CSS y JS se carguen correctamente desde cualquier subdirectorio.
+- Se implementaron rutas absolutas para los enlaces de navegación.
+
+### Explicación adicional:
+- **Gráficos interactivos**: Se implementaron gráficos utilizando la librería Chart.js para visualizar las estadísticas de manera más clara y atractiva.
+  - **Gráfico de barras**: Muestra el número de pedidos por categoría.
+  - **Gráfico de dona**: Representa el total de tonkens distribuidos.
+- **Compatibilidad**: Se corrigieron las rutas para que funcionen correctamente desde cualquier subdirectorio.
+
+---
+
+### Cambios en header.php
+Cambios realizados:
+- Se añadieron enlaces adicionales como "Perfil" y "Cerrar Sesión" para usuarios logueados.
+- Se añadió lógica para mostrar "Login" y "Registro" cuando no hay una sesión activa.
+
+---
+
+### Cambios en login.php
+Cambios realizados:
+- Se añadió lógica para redirigir a diferentes páginas según el rol del usuario:
+  - Administrador: `admin/dashboard.php`.
+  - Voluntario: `productos/index.php`.
+  - Cliente: `index.php`.
+
+### Explicación adicional:
+- **Redirección por rol**: Se añadió lógica para redirigir a diferentes áreas según el rol del usuario.
+
+---
+
+### Cambios en editar.php
+Cambios realizados:
+- Se añadió la funcionalidad para que los usuarios puedan editar su nombre, correo electrónico y teléfono.
+- Se añadió un campo opcional para cambiar la contraseña.
+- Se implementó la validación y sanitización de los datos enviados por el usuario.
+- Se añadió un mensaje de éxito o error después de guardar los cambios.
+- Se actualizó la sesión del usuario con los nuevos datos después de realizar cambios.
+
+### Explicación adicional:
+- **Gestión de datos personales**: Los usuarios ahora pueden editar su información personal, incluyendo la contraseña.
+- **Validación y sanitización**: Se validaron y limpiaron los datos enviados por el usuario para evitar datos maliciosos.
+- **Mensajes claros**: Se añadieron mensajes de éxito o error para informar al usuario sobre el resultado de la operación.
+
+---
+
+### Cambios en perfil.php
+Cambios realizados:
+- Se añadió la funcionalidad para mostrar las opciones del perfil según el rol del usuario:
+  - Administrador: Acceso al panel de administración.
+  - Voluntario: Gestión de productos.
+  - Cliente: Acceso al carrito y pedidos.
+- Se añadió un botón para editar el perfil.
+- Se añadió un formulario para solicitar la cancelación de la cuenta.
+- Se corrigió la ruta del carrito para que apunte a `carrito/index.php`.
+
+### Explicación adicional:
+- **Opciones por rol**: Se añadieron opciones específicas para cada rol de usuario, mejorando la experiencia del usuario.
+- **Gestión del perfil**: Los usuarios pueden editar su perfil o solicitar la cancelación de su cuenta.
+- **Corrección de rutas**: Se corrigió la ruta del carrito para que funcione correctamente.
+
+---
+
+### Cambios en logout.php
+Cambios realizados:
+- Se implementó la funcionalidad para destruir la sesión del usuario y redirigirlo a la página principal (`index.php`).
+
+### Explicación adicional:
+- **Cierre de sesión seguro**: Se destruyó la sesión del usuario para garantizar que no pueda acceder a áreas restringidas después de cerrar sesión.
+- **Redirección**: Se redirigió al usuario a la página principal después de cerrar sesión.
+
+---

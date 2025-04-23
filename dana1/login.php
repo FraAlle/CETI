@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Verificar la contraseña hasheada
             if (password_verify($password, $usuario['password'])) {
                 session_start();
-                $_SESSION['usuario'] = [
+                $_SESSION['usuario'] = [ // Cambiado a 'usuario' para incluir todos los roles
                     'id' => $usuario['id'],
                     'email' => htmlspecialchars($usuario['email'], ENT_QUOTES, 'UTF-8'),
                     'nombre' => htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8'),
@@ -27,10 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ];
 
                 // Redirigir según el rol del usuario
-                if ($usuario['rol'] === 'administrador') {
-                    header("Location: admin/dashboard.php");
-                } else {
-                    header("Location: index.php");
+                switch ($usuario['rol']) {
+                    case 'administrador':
+                        header("Location: admin/dashboard.php");
+                        break;
+                    case 'voluntario':
+                        header("Location: productos/index.php");
+                        break;
+                    case 'cliente':
+                        header("Location: index.php");
+                        break;
+                    default:
+                        $error = "Rol no reconocido.";
+                        break;
                 }
                 exit();
             } else {
