@@ -1,5 +1,9 @@
 <?php
-session_start();
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 include '../includes/db.php';
 include '../includes/header.php';
 
@@ -9,15 +13,34 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+// Función para sanitizar datos
+function sanitize($data) {
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
+
+// Obtener el ID del usuario desde la sesión
 $id = $_SESSION['usuario']['id'];
 
-// Obtener los datos actuales del usuario
+// Validar que el ID sea un número entero
+if (!filter_var($id, FILTER_VALIDATE_INT)) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// Obtener los datos actuales del usuario de forma segura
 $query = $conexion->prepare("SELECT * FROM usuarios WHERE id = ?");
 $query->bind_param("i", $id);
 $query->execute();
 $resultado = $query->get_result();
 $usuario = $resultado->fetch_assoc();
 
+// Verificar que el usuario exista en la base de datos
+if (!$usuario) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// Manejar el envío del formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validar y sanitizar los datos enviados
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
@@ -28,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $query = $conexion->prepare("UPDATE usuarios SET nombre = ?, email = ? WHERE id = ?");
         $query->bind_param("ssi", $nombre, $email, $id);
         if ($query->execute()) {
+            // Actualizar los datos en la sesión
             $_SESSION['usuario']['nombre'] = $nombre;
             $_SESSION['usuario']['email'] = $email;
             header("Location: perfil.php");
@@ -47,22 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="card-body">
             <!-- Mostrar mensajes de éxito o error -->
             <?php if (isset($error)): ?>
-                <div class="alert alert-danger"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
+                <div class="alert alert-danger"><?php echo sanitize($error); ?></div>
             <?php endif; ?>
 
             <!-- Formulario de edición -->
             <form method="POST">
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8'); ?>" required>
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="<?php echo sanitize($usuario['nombre']); ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($usuario['email'], ENT_QUOTES, 'UTF-8'); ?>" required>
+                    <input type="email" id="email" name="email" class="form-control" value="<?php echo sanitize($usuario['email']); ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="valoracion" class="form-label">Valoración:</label>
-                    <input type="text" id="valoracion" class="form-control" value="<?php echo htmlspecialchars($usuario['valoracion'], ENT_QUOTES, 'UTF-8'); ?>" disabled>
+                    <input type="text" id="valoracion" class="form-control" value="<?php echo sanitize($usuario['valoracion']); ?>" disabled>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>

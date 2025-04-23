@@ -236,3 +236,77 @@ Cambios realizados:
 - **Redirección**: Se redirigió al usuario a la página principal después de cerrar sesión.
 
 ---
+
+## [1.0.8] - 23-04-2025
+### Cambios en dashboard.php
+Cambios realizados:
+- Se implementó la sanitización de datos dinámicos utilizados en los gráficos para proteger contra ataques XSS.
+- Se añadieron validaciones de sesión para garantizar que solo los administradores puedan acceder al panel.
+- Se mejoró la estructura del código para garantizar consultas SQL seguras utilizando consultas preparadas.
+
+### Explicación adicional:
+- **Protección contra XSS**: Se sanitizaron los datos dinámicos utilizados en los gráficos para evitar inyecciones de scripts maliciosos.
+- **Validación de sesión**: Se añadió una verificación para garantizar que solo los administradores puedan acceder al panel.
+- **Consultas seguras**: Se usaron consultas preparadas para evitar inyecciones SQL.
+
+---
+
+### Cambios en editar.php
+Cambios realizados:
+- Se implementó la validación de sesión para garantizar que solo los usuarios autenticados puedan acceder a la página.
+- Se añadieron validaciones y sanitización de los datos enviados por el formulario.
+- Se mejoró el manejo de errores para mostrar mensajes claros al usuario.
+- Se protegieron los datos dinámicos mostrados en el formulario contra ataques XSS.
+- Se añadió la funcionalidad para actualizar el nombre y correo electrónico del usuario de forma segura.
+
+### Explicación adicional:
+- **Validación de sesión**: Solo los usuarios autenticados pueden acceder a la página.
+- **Sanitización de datos**: Se validaron y limpiaron los datos enviados por el usuario para evitar datos maliciosos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en el formulario para evitar inyecciones de scripts maliciosos.
+- **Manejo de errores**: Se añadieron mensajes claros para informar al usuario sobre el resultado de la operación.
+
+---
+
+### Cambios en perfil.php
+Cambios realizados:
+- Se implementó la validación de sesión para garantizar que solo los usuarios autenticados puedan acceder a la página.
+- Se añadieron opciones específicas según el rol del usuario:
+  - Administrador: Acceso al panel de administración.
+  - Voluntario: Gestión de productos.
+  - Cliente: Acceso al carrito y pedidos.
+- Se protegieron los datos dinámicos mostrados en la página contra ataques XSS.
+- Se añadió un formulario para solicitar la cancelación de la cuenta con confirmación.
+
+### Explicación adicional:
+- **Validación de sesión**: Solo los usuarios autenticados pueden acceder a la página.
+- **Opciones por rol**: Se añadieron opciones específicas para cada rol de usuario, mejorando la experiencia del usuario.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en la página para evitar inyecciones de scripts maliciosos.
+- **Gestión del perfil**: Los usuarios pueden editar su perfil o solicitar la cancelación de su cuenta.
+
+---
+
+### Cambios en logout.php
+Cambios realizados:
+- Se implementó la funcionalidad para destruir la sesión del usuario y redirigirlo a la página principal (`index.php`).
+- Se mejoró la seguridad del cierre de sesión para garantizar que no se pueda acceder a áreas restringidas después de cerrar sesión.
+
+### Explicación adicional:
+- **Cierre de sesión seguro**: Se destruyó la sesión del usuario para garantizar que no pueda acceder a áreas restringidas después de cerrar sesión.
+- **Redirección**: Se redirigió al usuario a la página principal después de cerrar sesión.
+
+---
+
+### Cambios generales
+Cambios realizados:
+- Se mejoró la seguridad general del proyecto mediante la implementación de consultas preparadas en todas las interacciones con la base de datos.
+- Se añadieron validaciones de sesión en todas las páginas restringidas para garantizar que solo los usuarios autorizados puedan acceder.
+- Se implementó la sanitización de todos los datos dinámicos mostrados en las páginas para proteger contra ataques XSS.
+- Se mejoró el manejo de errores para mostrar mensajes claros y útiles al usuario.
+
+### Explicación adicional:
+- **Consultas preparadas**: Se usaron consultas preparadas en todas las interacciones con la base de datos para evitar inyecciones SQL.
+- **Validación de sesión**: Se añadió una verificación de sesión en todas las páginas restringidas para garantizar la seguridad del sistema.
+- **Protección contra XSS**: Se escaparon todos los datos dinámicos mostrados en las páginas para evitar inyecciones de scripts maliciosos.
+- **Manejo de errores**: Se añadieron mensajes claros para informar al usuario sobre el resultado de las operaciones.
+
+---

@@ -2,20 +2,38 @@
 include '../includes/header.php';
 include '../includes/db.php';
 
+// Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 // Verificar si el usuario está logueado y tiene el rol de administrador
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'administrador') {
     header("Location: ../index.php");
     exit();
 }
 
-// Obtener estadísticas clave
-$totalUsuarios = $conexion->query("SELECT COUNT(*) AS total FROM usuarios")->fetch_assoc()['total'];
-$totalProductos = $conexion->query("SELECT COUNT(*) AS total FROM productos")->fetch_assoc()['total'];
-$totalPedidos = $conexion->query("SELECT COUNT(*) AS total FROM pedidos")->fetch_assoc()['total'];
-$totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->fetch_assoc()['total'];
+// Función para sanitizar datos
+function sanitize($data) {
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
+
+// Obtener estadísticas clave con consultas preparadas
+$totalUsuariosQuery = $conexion->prepare("SELECT COUNT(*) AS total FROM usuarios");
+$totalUsuariosQuery->execute();
+$totalUsuarios = $totalUsuariosQuery->get_result()->fetch_assoc()['total'];
+
+$totalProductosQuery = $conexion->prepare("SELECT COUNT(*) AS total FROM productos");
+$totalProductosQuery->execute();
+$totalProductos = $totalProductosQuery->get_result()->fetch_assoc()['total'];
+
+$totalPedidosQuery = $conexion->prepare("SELECT COUNT(*) AS total FROM pedidos");
+$totalPedidosQuery->execute();
+$totalPedidos = $totalPedidosQuery->get_result()->fetch_assoc()['total'];
+
+$totalTonkensQuery = $conexion->prepare("SELECT SUM(tonkens) AS total FROM usuarios");
+$totalTonkensQuery->execute();
+$totalTonkens = $totalTonkensQuery->get_result()->fetch_assoc()['total'];
 ?>
 
 <div class="container mt-5">
@@ -27,7 +45,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total de Usuarios</h5>
-                    <p class="card-text"><?php echo htmlspecialchars($totalUsuarios, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="card-text"><?php echo sanitize($totalUsuarios); ?></p>
                     <a href="usuarios.php" class="btn btn-primary">Ver Usuarios</a>
                 </div>
             </div>
@@ -36,7 +54,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total de Productos</h5>
-                    <p class="card-text"><?php echo htmlspecialchars($totalProductos, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="card-text"><?php echo sanitize($totalProductos); ?></p>
                     <a href="productos.php" class="btn btn-primary">Ver Productos</a>
                 </div>
             </div>
@@ -45,7 +63,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total de Pedidos</h5>
-                    <p class="card-text"><?php echo htmlspecialchars($totalPedidos, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="card-text"><?php echo sanitize($totalPedidos); ?></p>
                     <a href="pedidos.php" class="btn btn-primary">Ver Pedidos</a>
                 </div>
             </div>
@@ -54,7 +72,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Tonkens Totales</h5>
-                    <p class="card-text"><?php echo htmlspecialchars($totalTonkens, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="card-text"><?php echo sanitize($totalTonkens); ?></p>
                 </div>
             </div>
         </div>
@@ -93,7 +111,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             labels: ['Usuarios'],
             datasets: [{
                 label: 'Total de Usuarios',
-                data: [<?php echo $totalUsuarios; ?>],
+                data: [<?php echo sanitize($totalUsuarios); ?>],
                 backgroundColor: ['rgba(75, 192, 192, 0.2)'],
                 borderColor: ['rgba(75, 192, 192, 1)'],
                 borderWidth: 1
@@ -117,7 +135,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             labels: ['Productos'],
             datasets: [{
                 label: 'Total de Productos',
-                data: [<?php echo $totalProductos; ?>],
+                data: [<?php echo sanitize($totalProductos); ?>],
                 backgroundColor: ['rgba(255, 99, 132, 0.2)'],
                 borderColor: ['rgba(255, 99, 132, 1)'],
                 borderWidth: 1
@@ -136,7 +154,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             labels: ['Pedidos'],
             datasets: [{
                 label: 'Total de Pedidos',
-                data: [<?php echo $totalPedidos; ?>],
+                data: [<?php echo sanitize($totalPedidos); ?>],
                 backgroundColor: ['rgba(54, 162, 235, 0.2)'],
                 borderColor: ['rgba(54, 162, 235, 1)'],
                 borderWidth: 1
@@ -160,7 +178,7 @@ $totalTonkens = $conexion->query("SELECT SUM(tonkens) AS total FROM usuarios")->
             labels: ['Tonkens'],
             datasets: [{
                 label: 'Tonkens Totales',
-                data: [<?php echo $totalTonkens; ?>],
+                data: [<?php echo sanitize($totalTonkens); ?>],
                 backgroundColor: ['rgba(153, 102, 255, 0.2)'],
                 borderColor: ['rgba(153, 102, 255, 1)'],
                 borderWidth: 1

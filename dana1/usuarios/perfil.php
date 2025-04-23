@@ -11,12 +11,31 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+// Función para sanitizar datos
+function sanitize($data) {
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+}
+
 $id = $_SESSION['usuario']['id'];
+
+// Validar que el ID sea un número entero
+if (!filter_var($id, FILTER_VALIDATE_INT)) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// Obtener los datos actuales del usuario de forma segura
 $query = $conexion->prepare("SELECT * FROM usuarios WHERE id = ?");
 $query->bind_param("i", $id);
 $query->execute();
 $resultado = $query->get_result();
 $usuario = $resultado->fetch_assoc();
+
+// Verificar que el usuario exista en la base de datos
+if (!$usuario) {
+    header("Location: ../index.php");
+    exit();
+}
 ?>
 
 <div class="container mt-5">
@@ -24,9 +43,9 @@ $usuario = $resultado->fetch_assoc();
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Información Personal</h5>
-            <p><strong>Nombre:</strong> <?php echo htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8'); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($usuario['email'], ENT_QUOTES, 'UTF-8'); ?></p>
-            <p><strong>Rol:</strong> <?php echo htmlspecialchars($usuario['rol'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><strong>Nombre:</strong> <?php echo sanitize($usuario['nombre']); ?></p>
+            <p><strong>Email:</strong> <?php echo sanitize($usuario['email']); ?></p>
+            <p><strong>Rol:</strong> <?php echo sanitize($usuario['rol']); ?></p>
             <a href="editar.php" class="btn btn-primary">Editar Perfil</a>
         </div>
     </div>
