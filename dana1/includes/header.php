@@ -28,9 +28,22 @@
           <a href="<?php echo $base_url; ?>quienes_somos.php" class="nav-link">Quiénes Somos</a>
           <a href="<?php echo $base_url; ?>contacto.php" class="nav-link">Contacto</a>
           <?php if (isset($_SESSION['usuario'])): ?>
+              <!-- Opciones para clientes -->
+              <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'cliente'): ?>
+                  <a href="<?php echo $base_url; ?>productos/index.php" class="nav-link">Productos</a>
+                  <a href="<?php echo $base_url; ?>carrito/index.php" class="nav-link">Carrito</a>
+              <?php endif; ?>
+
+              <!-- Opciones para voluntarios -->
+              <?php if (isset($_SESSION['usuario']['rol']) && $_SESSION['usuario']['rol'] === 'voluntario'): ?>
+                  <a href="<?php echo $base_url; ?>productos/index.php" class="nav-link">Gestionar Productos</a>
+              <?php endif; ?>
+
+              <!-- Opción de perfil para todos los usuarios logueados -->
               <a href="<?php echo $base_url; ?>usuarios/perfil.php" class="nav-link">Perfil</a>
               <a href="<?php echo $base_url; ?>logout.php" class="nav-link text-danger">Cerrar Sesión</a>
           <?php else: ?>
+              <!-- Opciones para usuarios no logueados -->
               <a href="<?php echo $base_url; ?>login.php" class="nav-link">Login</a>
               <a href="<?php echo $base_url; ?>registro.php" class="nav-link">Registro</a>
           <?php endif; ?>

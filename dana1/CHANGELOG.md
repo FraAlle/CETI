@@ -375,3 +375,81 @@ Cambios realizados:
 - **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
 
 ---
+
+## [1.1.0] - 25-04-2025
+
+### Cambios en productos/index.php
+Cambios realizados:
+- Se añadió un botón "Añadir al Carrito" que abre un modal para seleccionar la cantidad antes de añadir el producto al carrito.
+- Se implementó la validación en el cliente para garantizar que la cantidad seleccionada no supere el stock disponible.
+- Se sanitizaron los datos dinámicos mostrados en la tabla para proteger contra ataques XSS.
+- Se implementaron consultas preparadas para obtener los datos de los productos de forma segura.
+
+### Explicación adicional:
+- **Botón "Añadir al Carrito"**: Mejora la experiencia del usuario al permitir seleccionar la cantidad directamente desde un modal.
+- **Validación de stock**: Garantiza que no se puedan añadir cantidades mayores al stock disponible.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en la tabla para evitar inyecciones de scripts maliciosos.
+- **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
+
+---
+
+### Cambios en header.php
+Cambios realizados:
+- Se añadieron enlaces dinámicos según el rol del usuario:
+  - Administrador: Acceso al panel de administración.
+  - Voluntario: Acceso directo a productos.
+  - Cliente: Acceso al carrito y productos.
+- Se añadió un enlace para cerrar sesión de forma segura.
+- Se sanitizaron los datos dinámicos mostrados en el encabezado para proteger contra ataques XSS.
+
+### Explicación adicional:
+- **Enlaces dinámicos**: Mejora la experiencia del usuario al mostrar opciones relevantes según su rol.
+- **Cierre de sesión seguro**: Garantiza que el usuario no pueda acceder a áreas restringidas después de cerrar sesión.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en el encabezado para evitar inyecciones de scripts maliciosos.
+
+---
+
+### Cambios en carrito/index.php
+Cambios realizados:
+- Se validaron los datos del carrito para garantizar que los IDs de los productos y las cantidades sean válidos.
+- Se sanitizaron los datos dinámicos mostrados en la tabla para proteger contra ataques XSS.
+- Se añadieron mensajes claros para informar al usuario si el carrito está vacío o si ocurre un problema.
+- Se implementaron consultas preparadas para obtener los datos de los productos de forma segura.
+
+### Explicación adicional:
+- **Validación de datos**: Garantiza que los datos del carrito sean válidos antes de procesarlos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en la tabla para evitar inyecciones de scripts maliciosos.
+- **Mensajes claros**: Se añadieron mensajes para informar al usuario sobre el estado del carrito.
+- **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
+
+---
+
+### Cambios en carrito/checkout.php
+Cambios realizados:
+- Se añadió validación para garantizar que el usuario tenga suficientes "tonkens" y que haya suficiente stock para cada producto antes de procesar la compra.
+- Se implementaron transacciones SQL para garantizar que todas las operaciones (registro del pedido, actualización del stock, etc.) se realicen de manera atómica.
+- Se sanitizaron los datos dinámicos mostrados en los mensajes para proteger contra ataques XSS.
+- Se añadieron mensajes claros para informar al usuario si ocurre un problema durante el proceso de compra.
+
+### Explicación adicional:
+- **Validación de tonkens y stock**: Garantiza que el usuario no pueda realizar una compra si no tiene suficientes "tonkens" o si no hay suficiente stock.
+- **Transacciones SQL**: Asegura que todas las operaciones relacionadas con la compra se realicen de manera segura y consistente.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en los mensajes para evitar inyecciones de scripts maliciosos.
+- **Mensajes claros**: Se añadieron mensajes para informar al usuario sobre el estado de la compra.
+
+---
+
+### Cambios en carrito/eliminar.php
+Cambios realizados:
+- Se validó que el ID del producto recibido sea un número entero válido antes de procesarlo.
+- Se sanitizaron los datos dinámicos mostrados en los mensajes para proteger contra ataques XSS.
+- Se añadieron mensajes claros para informar al usuario si el producto fue eliminado o si no estaba en el carrito.
+- Se registraron intentos de acceso no autorizado y errores en el log del servidor.
+
+### Explicación adicional:
+- **Validación del ID del producto**: Garantiza que solo se procesen IDs válidos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en los mensajes para evitar inyecciones de scripts maliciosos.
+- **Mensajes claros**: Se añadieron mensajes para informar al usuario sobre el estado de la operación.
+- **Registro de errores**: Facilita la depuración al registrar intentos de acceso no autorizado y errores en el log del servidor.
+
+---
