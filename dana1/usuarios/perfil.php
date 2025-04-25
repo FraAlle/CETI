@@ -57,7 +57,7 @@ if (!$usuario) {
             <a href="../admin/dashboard.php" class="btn btn-success">Ir al Panel de Administración</a>
         <?php elseif ($usuario['rol'] === 'voluntario'): ?>
             <h5>Opciones de Voluntario</h5>
-            <a href="../productos/mis_productos.php" class="btn btn-success">Gestionar Mis Productos</a>
+            <a href="../productos/index.php" class="btn btn-success">Gestionar Mis Productos</a>
         <?php elseif ($usuario['rol'] === 'cliente'): ?>
             <h5>Opciones de Cliente</h5>
             <a href="../carrito/index.php" class="btn btn-success">Ver Carrito</a>

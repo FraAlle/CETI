@@ -310,3 +310,68 @@ Cambios realizados:
 - **Manejo de errores**: Se añadieron mensajes claros para informar al usuario sobre el resultado de las operaciones.
 
 ---
+
+## [1.0.9] - 25-04-2025
+### Cambios en productos/index.php
+Cambios realizados:
+- Se añadió un botón "Ver Detalle" en la tabla de productos para acceder a la página de detalles de cada producto.
+- Se incluyeron las columnas `categoría` y `stock` en la tabla de productos para mostrar información adicional.
+- Se sanitizaron los datos dinámicos mostrados en la tabla para proteger contra ataques XSS.
+- Se implementaron consultas preparadas para obtener los datos de los productos de forma segura.
+
+### Explicación adicional:
+- **Botón "Ver Detalle"**: Permite acceder a la página de detalles de un producto específico.
+- **Columnas adicionales**: Se añadieron las columnas `categoría` y `stock` para mostrar más información sobre los productos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en la tabla para evitar inyecciones de scripts maliciosos.
+- **Consultas seguras**: Se usaron consultas preparadas para evitar inyecciones SQL.
+
+---
+
+### Cambios en productos/editar.php
+Cambios realizados:
+- Se implementó la funcionalidad para editar los datos de un producto, incluyendo `nombre`, `descripción`, `precio_tonkens`, `categoría` y `stock`.
+- Se validaron y sanitizaron los datos enviados por el formulario para evitar datos maliciosos.
+- Se protegieron los datos dinámicos mostrados en el formulario contra ataques XSS.
+- Se añadieron mensajes claros para informar al usuario sobre el éxito o fallo de la operación.
+- Se implementaron consultas preparadas para actualizar los datos del producto de forma segura.
+
+### Explicación adicional:
+- **Edición de productos**: Los usuarios pueden editar todos los campos del producto de forma segura.
+- **Validación y sanitización**: Se validaron y limpiaron los datos enviados por el usuario para evitar datos maliciosos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en el formulario para evitar inyecciones de scripts maliciosos.
+- **Mensajes claros**: Se añadieron mensajes para informar al usuario sobre el resultado de la operación.
+- **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
+
+---
+
+### Cambios en productos/detalle.php
+Cambios realizados:
+- Se implementó la funcionalidad para mostrar los detalles de un producto específico, incluyendo `nombre`, `descripción`, `precio_tonkens`, `categoría` y `stock`.
+- Se validó el ID del producto recibido en la URL para garantizar que sea un número entero válido.
+- Se protegieron los datos dinámicos mostrados en la página contra ataques XSS.
+- Se implementaron consultas preparadas para obtener los datos del producto de forma segura.
+
+### Explicación adicional:
+- **Visualización de detalles**: Los usuarios pueden ver todos los detalles de un producto específico.
+- **Validación del ID**: Se validó el ID recibido en la URL para evitar accesos no autorizados o datos maliciosos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en la página para evitar inyecciones de scripts maliciosos.
+- **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
+
+---
+
+### Cambios en productos/agregar.php
+Cambios realizados:
+- Se implementó la funcionalidad para agregar nuevos productos, incluyendo `nombre`, `descripción`, `precio_tonkens`, `categoría` y `stock`.
+- Se validaron y sanitizaron los datos enviados por el formulario para evitar datos maliciosos.
+- Se protegieron los datos dinámicos mostrados en los mensajes de éxito o error contra ataques XSS.
+- Se añadieron mensajes claros para informar al usuario sobre el éxito o fallo de la operación.
+- Se implementaron consultas preparadas para insertar los datos del producto de forma segura.
+
+### Explicación adicional:
+- **Agregar productos**: Los usuarios pueden agregar nuevos productos con todos los campos requeridos.
+- **Validación y sanitización**: Se validaron y limpiaron los datos enviados por el usuario para evitar datos maliciosos.
+- **Protección contra XSS**: Se escaparon los datos dinámicos mostrados en los mensajes para evitar inyecciones de scripts maliciosos.
+- **Mensajes claros**: Se añadieron mensajes para informar al usuario sobre el resultado de la operación.
+- **Consultas seguras**: Se usaron consultas preparadas para proteger la base de datos contra inyecciones SQL.
+
+---
