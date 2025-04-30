@@ -6,7 +6,7 @@
   <title>DANA - Tienda</title>
   <?php
   // Definir la ruta base absoluta del proyecto
-  $base_url = '/dana1/dana1/';
+  $base_url = '/CETI/dana1/';
   if (session_status() === PHP_SESSION_NONE) {
       session_start();
   }
