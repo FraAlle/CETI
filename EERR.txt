@@ -1,0 +1,2 @@
+Expresión regular normal: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+Expresión regular 64 chars max: ^(?=.{1,64}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
