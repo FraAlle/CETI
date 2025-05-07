@@ -453,3 +453,36 @@ Cambios realizados:
 - **Registro de errores**: Facilita la depuración al registrar intentos de acceso no autorizado y errores en el log del servidor.
 
 ---
+
+## [1.1.1] - 06-05-2025
+### Cambios en index.php
+Cambios realizados:
+- Se añadió soporte para PWA mediante la inclusión de:
+  - Referencia al archivo `manifest.json` en el `<head>`.
+  - Registro del `service-worker.js` para habilitar el almacenamiento en caché y el funcionamiento offline.
+- Se implementó un script para registrar el Service Worker y manejar errores en el registro.
+
+### Cambios en manifest.json
+Cambios realizados:
+- Se creó el archivo `manifest.json` con la configuración necesaria para la PWA:
+  - Nombre y descripción de la aplicación.
+  - Colores de tema y fondo.
+  - Íconos en diferentes tamaños (`192x192` y `512x512`).
+  - URL de inicio (`start_url`) configurada para la aplicación.
+
+### Cambios en service-worker.js
+Cambios realizados:
+- Se creó el archivo `service-worker.js` para manejar el almacenamiento en caché de recursos:
+  - Se definió una lista de URLs a cachear, incluyendo archivos CSS, imágenes y páginas principales.
+  - Se implementaron eventos `install` y `fetch` para gestionar el almacenamiento en caché y las solicitudes de red.
+
+### Cambios adicionales
+- **Íconos**: Se añadieron los íconos `icon-192x192.png` y `icon-512x512.png` en la carpeta `css` para la instalación de la PWA.
+- **Compatibilidad**: Se probó la funcionalidad de la PWA en navegadores compatibles y se verificó el correcto funcionamiento offline.
+
+### Explicación adicional:
+- **PWA (Progressive Web App)**: La aplicación ahora puede instalarse en dispositivos compatibles y funcionar offline gracias al almacenamiento en caché de recursos.
+- **Manifest y Service Worker**: Se añadieron los archivos necesarios para cumplir con los requisitos de una PWA.
+- **Mejor experiencia de usuario**: Los usuarios pueden instalar la aplicación y acceder a ella como si fuera una aplicación nativa.
+
+---
